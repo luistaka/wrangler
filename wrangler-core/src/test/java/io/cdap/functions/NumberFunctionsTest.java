@@ -35,10 +35,10 @@ public class NumberFunctionsTest {
       "set-column double { a = 5.0; number:AsDouble(a/2) }",
       "set-column float { a = 2.34; number:AsFloat(a) }",
       "set-column int { a = 5.64; number:AsInteger(a) }",
-      "set-column mantissaInt { a = 5; number:MantissaFromDecimal(a) }",
-      "set-column mantissaDouble { a = 43.2534; number:MantissaFromDecimal(a) }",
-      "set-column mantissaInt1 { a = 100; number:MantissaFromDFloat(a) }",
-      "set-column mantissaDouble1 { a = 12.0234; number:MantissaFromDFloat(a) }",
+      "set-column mantissaInt { a = 5; number:Mantissa(a) }",
+      "set-column mantissaDouble { a = 43.2534d; number:Mantissa(a) }",
+      "set-column mantissaLong { a = 214748364721l; number:Mantissa(a) }",
+      "set-column mantissaFloat { a = 12.0234; number:Mantissa(a) }",
     };
 
     List<Row> rows = Arrays.asList(
@@ -51,8 +51,8 @@ public class NumberFunctionsTest {
     Assert.assertEquals(2.34f, rows.get(0).getValue("float"));
     Assert.assertEquals(5, rows.get(0).getValue("int"));
     Assert.assertEquals(0d, rows.get(0).getValue("mantissaInt"));
-    Assert.assertEquals(2534d, rows.get(0).getValue("mantissaDouble"));
-    Assert.assertEquals(0d, rows.get(0).getValue("mantissaInt1"));
-    Assert.assertEquals(234d, rows.get(0).getValue("mantissaDouble1"));
+    Assert.assertEquals(0.2534d, rows.get(0).getValue("mantissaDouble"));
+    Assert.assertEquals(0d, rows.get(0).getValue("mantissaLong"));
+    Assert.assertEquals(0.0234d, rows.get(0).getValue("mantissaFloat"));
   }
 }

@@ -16,48 +16,71 @@
 
 package io.cdap.functions;
 
+import javax.annotation.Nullable;
+
 public final class NumberFunctions {
 
   /**
    * @return The number as double.
    */
-  public static double AsDouble(Number value) {
-    return value.doubleValue();
+  @Nullable
+  public static Double AsDouble(@Nullable Number value) {
+    return value == null ? null : value.doubleValue();
   }
 
   /**
    * @return The number as float.
    */
-  public static float AsFloat(Number value) {
-    return value.floatValue();
+  @Nullable
+  public static Float AsFloat(@Nullable Number value) {
+    return value == null ? null : value.floatValue();
   }
 
   /**
    * @return The number as integer.
    */
-  public static int AsInteger(Number value) {
-    return value.intValue();
+  @Nullable
+  public static Integer AsInteger(@Nullable Number value) {
+    return value == null ? null : value.intValue();
   }
 
   /**
-   * @return Returns the mantissa from the given decimal. Mantissa definition is used from
-   * https://www.wolframalpha.com/input/?i=mantissa
+   * @return Returns the mantissa from the given number. Mantissa definition is used from
+   * https://mathworld.wolfram.com/Mantissa.html
    */
-  public static double MantissaFromDecimal(Number value) {
-    return getMantissa(value.toString());
+  public static double Mantissa(int value) {
+    return 0d;
   }
 
   /**
-   * @return Returns the mantissa from the given number.
+   * @return Returns the mantissa from the given number. Mantissa definition is used from
+   * https://mathworld.wolfram.com/Mantissa.html
    */
-  public static double MantissaFromDFloat(Number value) {
-    return getMantissa(value.toString());
+  public static double Mantissa(long value) {
+    return 0d;
   }
 
-  private static double getMantissa(String number) {
-    if (number.indexOf('.') < 0) {
+  /**
+   * @return Returns the mantissa from the given number. Mantissa definition is used from
+   * https://mathworld.wolfram.com/Mantissa.html
+   */
+  public static double Mantissa(float value) {
+    return getMantissa(String.valueOf(value));
+  }
+
+  /**
+   * @return Returns the mantissa from the given number. Mantissa definition is used from
+   * https://mathworld.wolfram.com/Mantissa.html
+   */
+  public static double Mantissa(double value) {
+    return getMantissa(String.valueOf(value));
+  }
+
+  private static double getMantissa(String value) {
+    // use string for calculation here since Math.floor will lose some precision.
+    if (value.indexOf('.') < 0) {
       return 0d;
     }
-    return Double.valueOf(number.substring(number.indexOf('.') + 1));
+    return Double.valueOf(value.substring(value.indexOf('.')));
   }
 }
