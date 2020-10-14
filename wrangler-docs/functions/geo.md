@@ -53,6 +53,8 @@ represented as Double type values .
 ```
 
 ## InFence
+Checks if the given coordinate is inside any of the given polygonal geofences based on the winding number algorithm.
+If any of the inputs is null, this method will return false
 
 ### Namespace
 `geo`
