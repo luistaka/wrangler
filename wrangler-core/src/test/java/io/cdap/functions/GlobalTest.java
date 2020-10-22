@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -107,17 +108,17 @@ public class GlobalTest {
       "set-column test3 IsNotNull(c) ? c : null",
       "set-column test4 if(IsNotNull(c)){ a } else {b}"
     };
-    List<Row> rows = Arrays.asList(new Row("a", null)
-                                     .add("b", "value")
-                                     .add("c", new Long(999))
+    List<Row> rows = Collections.singletonList(new Row("a", null)
+                                                 .add("b", "value")
+                                                 .add("c", 999L)
     );
 
     rows = TestingRig.execute(directives, rows);
-    Assert.assertTrue(rows.size() == 1);
-    Assert.assertEquals(null, rows.get(0).getValue("test1"));
+    Assert.assertEquals(1, rows.size());
+    Assert.assertNull(rows.get(0).getValue("test1"));
     Assert.assertEquals("value", rows.get(0).getValue("test2"));
     Assert.assertEquals(999L, rows.get(0).getValue("test3"));
-    Assert.assertEquals(null, rows.get(0).getValue("test4"));
+    Assert.assertNull(rows.get(0).getValue("test4"));
   }
 
   @Test
@@ -128,16 +129,16 @@ public class GlobalTest {
       "set-column test3 IsNull(c) ? c : null",
       "set-column test4 if(IsNull(c)){ a } else {b}"
     };
-    List<Row> rows = Arrays.asList(new Row("a", null)
-                                     .add("b", "value")
-                                     .add("c", new Long(999))
+    List<Row> rows = Collections.singletonList(new Row("a", null)
+                                                 .add("b", "value")
+                                                 .add("c", 999L)
     );
 
     rows = TestingRig.execute(directives, rows);
-    Assert.assertTrue(rows.size() == 1);
-    Assert.assertEquals(null, rows.get(0).getValue("test1"));
-    Assert.assertEquals(null, rows.get(0).getValue("test2"));
-    Assert.assertEquals(null, rows.get(0).getValue("test3"));
+    Assert.assertEquals(1, rows.size());
+    Assert.assertNull(rows.get(0).getValue("test1"));
+    Assert.assertNull(rows.get(0).getValue("test2"));
+    Assert.assertNull(rows.get(0).getValue("test3"));
     Assert.assertEquals("value", rows.get(0).getValue("test4"));
   }
 
@@ -148,13 +149,13 @@ public class GlobalTest {
       "set-column test2 NullToEmpty(b)",
       "set-column test3 NullToEmpty(c)"
     };
-    List<Row> rows = Arrays.asList(new Row("a", null)
-                                     .add("b", "value")
-                                     .add("c", new Long(999))
+    List<Row> rows = Collections.singletonList(new Row("a", null)
+                                                 .add("b", "value")
+                                                 .add("c", 999L)
     );
 
     rows = TestingRig.execute(directives, rows);
-    Assert.assertTrue(rows.size() == 1);
+    Assert.assertEquals(1, rows.size());
     Assert.assertEquals("", rows.get(0).getValue("test1"));
     Assert.assertEquals("value", rows.get(0).getValue("test2"));
     Assert.assertEquals(999L, rows.get(0).getValue("test3"));
@@ -167,13 +168,13 @@ public class GlobalTest {
       "set-column test2 NullToZero(b == 'value' ? a : b)",
       "set-column test3 NullToZero(c)"
     };
-    List<Row> rows = Arrays.asList(new Row("a", null)
-                                     .add("b", "value")
-                                     .add("c", new Long(999))
+    List<Row> rows = Collections.singletonList(new Row("a", null)
+                                                 .add("b", "value")
+                                                 .add("c", 999L)
     );
 
     rows = TestingRig.execute(directives, rows);
-    Assert.assertTrue(rows.size() == 1);
+    Assert.assertEquals(1, rows.size());
     Assert.assertEquals(0, rows.get(0).getValue("test1"));
     Assert.assertEquals(0, rows.get(0).getValue("test2"));
     Assert.assertEquals(999L, rows.get(0).getValue("test3"));
@@ -186,15 +187,34 @@ public class GlobalTest {
       "set-column test2 NullToValue(b == 'value' ? a : b, 42)",
       "set-column test3 NullToValue(c, 42)"
     };
-    List<Row> rows = Arrays.asList(new Row("a", null)
-                                     .add("b", "value")
-                                     .add("c", new Long(999))
+    List<Row> rows = Collections.singletonList(new Row("a", null)
+                                                 .add("b", "value")
+                                                 .add("c", 999L)
     );
 
     rows = TestingRig.execute(directives, rows);
-    Assert.assertTrue(rows.size() == 1);
+    Assert.assertEquals(1, rows.size());
     Assert.assertEquals(42, rows.get(0).getValue("test1"));
     Assert.assertEquals(42, rows.get(0).getValue("test2"));
     Assert.assertEquals(999L, rows.get(0).getValue("test3"));
+  }
+
+  @Test
+  public void testSetNull() throws Exception {
+    String[] directives = new String[]{
+      "set-column null1 SetNull()",
+      "set-column null2 SetNull()",
+      "set-column null3 SetNull()"
+    };
+    List<Row> rows = Collections.singletonList(new Row("null1", null)
+                                                 .add("null2", "value")
+                                                 .add("null3", 999L)
+    );
+
+    rows = TestingRig.execute(directives, rows);
+    Assert.assertEquals(1, rows.size());
+    Assert.assertNull( rows.get(0).getValue("null1"));
+    Assert.assertNull(rows.get(0).getValue("null2"));
+    Assert.assertNull(rows.get(0).getValue("null3"));
   }
 }

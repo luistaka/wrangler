@@ -101,16 +101,16 @@ set-column col3 NullToZero(c)
 ```
 
 ## NullToValue
-Returns zero if the input column is `null`, otherwise returns the input column value.
+Returns the specified value if the input column is `null`, otherwise returns the input column value.
 
 #### Namespace
 Global. No namespace qualifier required.
 
 #### Input
-column value (object/expression)
+column value (object/expression), replaced value (object/expression)
 
 #### Output
-column value or zero.
+column value or replaced value.
 
 #### Example
 If `a` contains the `null`, `b` contains string `value` and `c` contains number `999` then
@@ -119,7 +119,7 @@ If the input column does contain a `null`, then the output column contains the s
 examples, `col1` is `42`, `col2` is `42`, and `col3` is `999`.
 
 ```
-set-column col1 NullToValue(a)
+set-column col1 NullToValue(a, 42)
 set-column col2 NullToValue(b == 'value' ? a : b, 42)
-set-column col3 NullToValue(c)
+set-column col3 NullToValue(c, 42)
 ```

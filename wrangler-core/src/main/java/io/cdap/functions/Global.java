@@ -221,10 +221,7 @@ public final class Global {
    * @return true when not null, false otherwise.
    */
   public static boolean IsNotNull(Object value) {
-    if (value != null) {
-      return true;
-    }
-    return false;
+    return value != null;
   }
 
   /**
@@ -245,7 +242,7 @@ public final class Global {
    */
   public static Object NullToEmpty(Object value) {
     if (IsNull(value)) {
-      return new String("");
+      return "";
     }
     return value;
   }
