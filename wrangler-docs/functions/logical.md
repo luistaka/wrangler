@@ -4,13 +4,13 @@ The logical functions perform bit operations. All the functions described below 
 `logical` namespace. To use the functions defined in this namespace prefix function invocation with `logical:<func>`.
 
 ## BitAnd
-Returns the bitwise `AND` of the two `long` arguments.
+Returns the bitwise `AND` of the two arguments. The inputs must be non-null.
 
 #### Namespace
 `logical`
 
 #### Input
-number1(long), number2(long)
+number1(long, int), number2(long, int)
 
 #### Output
 long
@@ -24,13 +24,13 @@ set-column val logical:BitAnd(a,b)
 ```
 
 ## BitOr
-Returns the bitwise `OR` of the two `long` arguments.
+Returns the bitwise `OR` of the two arguments. The inputs must be non-null
 
 #### Namespace
 `logical`
 
 #### Input
-number1(long), number2(long)
+number1(long, int), number2(long, int)
 
 #### Output
 long
@@ -45,13 +45,13 @@ set-column val logical:BitOr(a,b)
 ```
 
 ## BitXor
-Returns the bitwise `XOR` of the two `long` arguments.
+Returns the bitwise `XOR` of the two arguments. The inputs must be non-null.
 
 #### Namespace
 `logical`
 
 #### Input
-number1(long), number2(long)
+number1(long, int), number2(long, int)
 
 #### Output
 long
@@ -119,10 +119,10 @@ expressions, including strings that include an empty string, spaces, or the numb
 `logical`
 
 #### Input
-expression
+expression(double, float, int, long, String)
 
 #### Output
-number (short)
+number (int)
 
 #### Example
 If `mynumber` contains the number `352`, then the following two functions are equivalent,

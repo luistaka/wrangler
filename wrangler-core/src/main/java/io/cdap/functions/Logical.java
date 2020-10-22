@@ -27,7 +27,7 @@ public final class Logical {
   private Logical() {}
 
   /**
-   * Bitwise 'AND' operation of two numbers.
+   * Bitwise 'AND' operation of two numbers. The inputs must be non-null.
    *
    * @param num1 first number.
    * @param num2 second number.
@@ -38,7 +38,18 @@ public final class Logical {
   }
 
   /**
-   * Bitwise 'OR' operation of two numbers.
+   * Bitwise 'AND' operation of two numbers. The inputs must be non-null.
+   *
+   * @param num1 first number.
+   * @param num2 second number.
+   * @return a result of bitwise 'AND'.
+   */
+  public static long BitAnd(int num1, int num2) {
+    return num1 & num2;
+  }
+
+  /**
+   * Bitwise 'OR' operation of two numbers. The inputs must be non-null.
    *
    * @param num1 first number.
    * @param num2 second number.
@@ -49,13 +60,35 @@ public final class Logical {
   }
 
   /**
-   * Bitwise 'XOR' operation of two numbers.
+   * Bitwise 'OR' operation of two numbers. The inputs must be non-null.
+   *
+   * @param num1 first number.
+   * @param num2 second number.
+   * @return a result of bitwise 'OR'
+   */
+  public static long BitOr(int num1, int num2) {
+    return num1 | num2;
+  }
+
+  /**
+   * Bitwise 'XOR' operation of two numbers. The inputs must be non-null.
    *
    * @param num1 first number.
    * @param num2 second number.
    * @return a result of bitwise 'XOR'
    */
   public static long BitXor(long num1, long num2) {
+    return num1 ^ num2;
+  }
+
+  /**
+   * Bitwise 'XOR' operation of two numbers. The inputs must be non-null.
+   *
+   * @param num1 first number.
+   * @param num2 second number.
+   * @return a result of bitwise 'XOR'
+   */
+  public static long BitXor(int num1, int num2) {
     return num1 ^ num2;
   }
 
@@ -67,14 +100,11 @@ public final class Logical {
    * An empty string is logically false. All other string expressions, including strings that include
    * an empty string, spaces, or the number 0 and spaces, are logically true.
    *
-   * @param exp expression result.
+   * @param val expression result.
    * @return 1 or 0.
    */
-  public static short Not(double exp) {
-    if (exp < 0) {
-      return 0;
-    }
-    return 1;
+  public static int Not(double val) {
+    return val == 0d ? 1 : 0;
   }
 
   /**
@@ -88,22 +118,63 @@ public final class Logical {
    * @param val string value.
    * @return 1 or 0.
    */
-  public static short Not(String val) {
-    if (val == null) {
-      return 0;
-    }
-    return 1;
+  public static int Not(String val) {
+    return (val == null || val.isEmpty()) ? 1 : 0;
   }
 
   /**
-   * Returns the integer made from the string argument, which contains a binary representation of "1"s and "0"s.
+   * Returns the complement of the logical value of an expression. If the value of expression is true,
+   * the Not function returns a value of false (0). If the value of expression is false, the NOT function
+   * returns a value of true (1). A numeric expression that evaluates to 0 is a logical value of false.
+   * A numeric expression that evaluates to anything else, other than the null value, is a logical true.
+   * An empty string is logically false. All other string expressions, including strings that include
+   * an empty string, spaces, or the number 0 and spaces, are logically true.
+   *
+   * @param val string value.
+   * @return 1 or 0.
+   */
+  public static int Not(float val) {
+    return val == 0f ? 1 : 0;
+  }
+
+  /**
+   * Returns the complement of the logical value of an expression. If the value of expression is true,
+   * the Not function returns a value of false (0). If the value of expression is false, the NOT function
+   * returns a value of true (1). A numeric expression that evaluates to 0 is a logical value of false.
+   * A numeric expression that evaluates to anything else, other than the null value, is a logical true.
+   * An empty string is logically false. All other string expressions, including strings that include
+   * an empty string, spaces, or the number 0 and spaces, are logically true.
+   *
+   * @param val string value.
+   * @return 1 or 0.
+   */
+  public static int Not(int val) {
+    return val == 0 ? 1 : 0;
+  }
+
+  /**
+   * Returns the complement of the logical value of an expression. If the value of expression is true,
+   * the Not function returns a value of false (0). If the value of expression is false, the NOT function
+   * returns a value of true (1). A numeric expression that evaluates to 0 is a logical value of false.
+   * A numeric expression that evaluates to anything else, other than the null value, is a logical true.
+   * An empty string is logically false. All other string expressions, including strings that include
+   * an empty string, spaces, or the number 0 and spaces, are logically true.
+   *
+   * @param val string value.
+   * @return 1 or 0.
+   */
+  public static int Not(long val) {
+    return val == 0L ? 1 : 0;
+  }
+
+  /**
+   * Returns the long made from the string argument, which contains a binary representation of "1"s and "0"s.
    *
    * @param value to be compressed.
    * @return long value of compressed binary string.
    */
   public static long BitCompress(String value) {
-    long result = Long.parseUnsignedLong(value, 2);
-    return result;
+    return Long.parseUnsignedLong(value, 2);
   }
 
   /**

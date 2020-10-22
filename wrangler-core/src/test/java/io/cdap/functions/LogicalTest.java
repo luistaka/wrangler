@@ -36,7 +36,7 @@ public class LogicalTest {
       "set-column expand logical:BitExpand(352)",
       "set-column not1 logical:Not(5-5)",
       "set-column not2 logical:Not(5+5)",
-      "set-column not3 logical:Not('value')",
+      "set-column not3 logical:Not(null)",
       "set-column bitset logical:SetBit(356,[2,4,8], 1)",
     };
 
@@ -44,15 +44,14 @@ public class LogicalTest {
     rows = TestingRig.execute(directives, rows);
     Assert.assertTrue(rows.size() == 1);
 
-    short expected = 1;
     Assert.assertEquals(256L, rows.get(0).getValue("and"));
     Assert.assertEquals(496L, rows.get(0).getValue("or"));
     Assert.assertEquals(240L, rows.get(0).getValue("xor"));
     Assert.assertEquals(352L, rows.get(0).getValue("compress"));
     Assert.assertEquals("101100000", rows.get(0).getValue("expand"));
-    Assert.assertEquals(expected, rows.get(0).getValue("not1"));
-    Assert.assertEquals(expected, rows.get(0).getValue("not2"));
-    Assert.assertEquals(expected, rows.get(0).getValue("not3"));
+    Assert.assertEquals(1, rows.get(0).getValue("not1"));
+    Assert.assertEquals(0, rows.get(0).getValue("not2"));
+    Assert.assertEquals(1, rows.get(0).getValue("not3"));
     Assert.assertEquals(494L, rows.get(0).getValue("bitset"));
   }
 }
