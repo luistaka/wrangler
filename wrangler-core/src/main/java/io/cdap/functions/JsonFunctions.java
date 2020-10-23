@@ -228,10 +228,10 @@ public final class JsonFunctions {
   }
 
   /**
-   * Parses a column or string to JSON. This is equivalent to <code>JSON.parse()</code>
+   * Parses a column or string to JSON. If the json string is invalid, this method will return a JsonNull
    *
    * @param json string representation of json.
-   * @return parsed json else throws an exception.
+   * @return parsed json
    */
   public static JsonElement Parse(String json) {
     try {
@@ -264,10 +264,7 @@ public final class JsonFunctions {
    * @return true if null, false otherwise.
    */
   public static boolean IsNull(JsonElement element) {
-    if (element != null && element.isJsonNull()) {
-      return true;
-    }
-    return false;
+    return element == null || element.isJsonNull();
   }
 
   /**
@@ -296,7 +293,7 @@ public final class JsonFunctions {
    * @param element json to be inspected.
    * @param path to be searched for in the element.
    * @param paths other paths.
-   * @return A json element containing the results of all json paths.
+   * @return A json array containing the results of all json paths.
    */
   public static JsonElement Select(JsonElement element, String path, String ...paths) {
     DocumentContext context = JsonPath.using(GSON_CONFIGURATION).parse(element);

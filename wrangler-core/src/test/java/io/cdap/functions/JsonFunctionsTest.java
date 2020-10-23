@@ -16,6 +16,9 @@
 
 package io.cdap.functions;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.cdap.wrangler.TestingRig;
 import io.cdap.wrangler.api.Row;
 import io.cdap.wrangler.utils.JsonTestData;
@@ -63,7 +66,7 @@ public class JsonFunctionsTest {
   public void testJsonSelect() throws Exception {
     String[] directives = new String[]{
       "set-column mayo json:Parse(body)",
-      "drop boody",
+      "drop body",
       "set-column entries json:Select(mayo, '$.list[*].set.*')"
     };
     List<Row> rows = Arrays.asList(
@@ -71,6 +74,22 @@ public class JsonFunctionsTest {
     );
     rows = TestingRig.execute(directives, rows);
     Assert.assertTrue(rows.size() == 1);
+    Assert.assertEquals(new JsonParser().parse(JSON_SELECTION_EG1), rows.get(0).getValue("mayo"));
+    JsonArray expected = new JsonArray();
+    addJsonObject(expected, "a1", "b1");
+    addJsonObject(expected, "x1", "y1");
+    addJsonObject(expected, "a2", "b2");
+    addJsonObject(expected, "x2", "y2");
+    addJsonObject(expected, "a3", "b3");
+    addJsonObject(expected, "x3", "y3");
+    Object entries = rows.get(0).getValue("entries");
+    Assert.assertEquals(expected, entries);
+  }
+
+  private void addJsonObject(JsonArray expected, String x1, String y1) {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty(x1, y1);
+    expected.add(jsonObject);
   }
 
   @Test

@@ -62,7 +62,7 @@ Below is an example malformed json described as `malformed_json` that is missing
 ```
 
 ## Parse
-Parses a json into `json-element`. If there are any issues in parsing, the function would return
+Parses a json into `json-element`. If there are any issues in parsing, the function returns
 `json-null`
 
 ### Namespace
@@ -76,11 +76,11 @@ Parses a json into `json-element`. If there are any issues in parsing, the funct
 
 ### Example
 
-if `json` has the input json specified, then the result of the operation would return `json-element`
+if `body` has the input json specified, then the result of the operation returns `json-element`
 that contains a parsed json.
 
 ```
-  set-column parsedjson json:Parse(json)
+  set-column parsedjson json:Parse(body)
 ```
 
 When a malformed json `malformed_json` is parsed, then the result of operation is `json-null`
@@ -103,10 +103,10 @@ boolean(`true`|`false`)
 
 ### Example
 
-if `json` has the input json specified, then the result of the operation would return `true`
+if `body` has the input json specified, then the result of the operation returns `true`
 
 ```
-  set-column validjson json:IsValid(json)
+  set-column validjson json:IsValid(body)
 ```
 
 When a malformed json `malformed_json` is parsed, then the result of operation is `false`
@@ -129,17 +129,17 @@ boolean(`true`|`false`)
 
 ### Example
 
-if `json` has the input json specified, then the result of the operation would return `false`
+if `body` has the input json specified, then the result of the operation returns `false`
 
 ```
-  set-column parsedjson json:Parse(json)
+  set-column parsedjson json:Parse(body)
   set-column notnull json:IsNull(parsedjson)
 ```
 
 When a malformed json `malformed_json` is parsed, then the result of operation is `true`
 
 ```
-  set-column parsedjson json:Parse(json) // Would return null as json is invalid.
+  set-column parsedjson json:Parse(json) // returns null as json is invalid.
   set-column null json:IsNull(parsedjson)
 ```
 
@@ -157,15 +157,15 @@ boolean(`true`|`false`)
 
 ### Example
 
-if `json` has the input json specified, then the result of the operation would return `true`.
+if `body` has the input json specified, then the result of the operation returns `true`.
 
 ```
-  set-column parsedjson json:Parse(json)
+  set-column parsedjson json:Parse(body)
   set-column object json:IsObject(parsedjson)
 ```
 
 ## Select
-Returns part of json specified by json path.
+Returns part of json specified by the given JSON Domain-Specific Language.
 
 ### Namespace
 `json`
@@ -178,7 +178,7 @@ Returns part of json specified by json path.
 
 ### Example
 
-if `body` has the json specified above, then the result of the operation would return `8`
+if `body` has the json specified above, then the result of the operation returns `8`
 as the result.
 
 ```
@@ -199,7 +199,7 @@ number(`int`)
 
 ### Example
 
-if `body` has the json specified above, then the result of the operation would return `8`
+if `body` has the json specified above, then the result of the operation returns `8`
 as the result.
 
 ```
